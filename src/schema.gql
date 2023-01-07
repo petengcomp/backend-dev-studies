@@ -24,10 +24,13 @@ scalar DateTime
 
 type Query {
   getAllContent: [Content!]!
+  getContentById(id: String!): Content!
 }
 
 type Mutation {
   createContent(data: CreateContentInput!): Content!
+  updateContentById(id: String!, data: CreateContentInput!): Content!
+  deleteContentById(id: String!): Content!
 }
 
 input CreateContentInput {
