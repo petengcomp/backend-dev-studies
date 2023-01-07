@@ -25,3 +25,7 @@ Set up the API url on the studio at this field, on top left corner
 > In order to access apollo studio and it's services, you have to create an account or log in.
 
 Once the url is provided, the API documentation will already be imported alongside all the queries whose will be presented on `Documentation` section.
+
+## Disclaimer
+
+The .sqlite file refers to development database, it should not be used in production
