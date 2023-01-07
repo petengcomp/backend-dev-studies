@@ -2,13 +2,30 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Trail {
+  id: String!
+  name: String!
+  type: TrailType!
+  stack: String!
+  description: String!
+  contents: [Content!]!
+}
+
+enum TrailType {
+  INICIANTES
+  FRONTEND
+  BACKEND
+  DEVOPS
+}
+
 type Content {
-  id: ID!
+  id: String!
   name: String!
   type: ContentType!
   description: String!
   link: String!
   date: DateTime!
+  trail: Trail!
 }
 
 enum ContentType {
@@ -25,12 +42,17 @@ scalar DateTime
 type Query {
   getAllContent: [Content!]!
   getContentById(id: String!): Content!
+  getAllTrails: [Trail!]!
+  getTrailById(id: String!): Trail!
 }
 
 type Mutation {
   createContent(data: CreateContentInput!): Content!
   updateContentById(id: String!, data: CreateContentInput!): Content!
   deleteContentById(id: String!): Content!
+  createTrail(data: CreateTrailInput!): Trail!
+  updateTrailById(id: String!, data: CreateTrailInput!): Trail!
+  deleteTrailById(id: String!): Trail!
 }
 
 input CreateContentInput {
@@ -39,4 +61,11 @@ input CreateContentInput {
   description: String!
   link: String!
   date: DateTime!
+}
+
+input CreateTrailInput {
+  name: String!
+  type: TrailType!
+  stack: String!
+  description: String!
 }

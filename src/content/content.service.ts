@@ -45,20 +45,17 @@ export class ContentService {
     id: string,
     data: CreateContentInput,
   ): Promise<Content> {
-    const content = this.contentRepository.findOne({
+    const foundContent = this.contentRepository.findOne({
       where: { id },
     });
-    if (!content) {
+    if (!foundContent) {
       throw new NotFoundException('Esse id não tem nenhum conteúdo associado');
     }
     const newContent = await this.contentRepository.update(id, data);
     if (!newContent) {
       throw new InternalServerErrorException('Problema ao atualizar conteúdo');
     }
-    return {
-      ...data,
-      id,
-    };
+    return foundContent;
   }
 
   async deleteContentById(id: string) {

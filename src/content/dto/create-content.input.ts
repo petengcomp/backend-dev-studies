@@ -8,10 +8,11 @@ export class CreateContentInput {
   @IsNotEmpty({ message: 'Esse campo não pode estar vazio' })
   name: string;
 
-  @IsEnum(ContentType)
+  @IsEnum(ContentType, {
+    message: 'Únicas opções aceitadas nesse campo: video/slide/book',
+  })
   @IsNotEmpty({
-    message:
-      'Esse campo não pode estar vazio, e nem ser diferente de video/slide/book]',
+    message: 'Esse campo não pode estar vazio',
   })
   type: ContentType;
 
