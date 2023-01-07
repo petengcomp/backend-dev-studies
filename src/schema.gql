@@ -1,0 +1,39 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Content {
+  id: ID!
+  name: String!
+  type: ContentType!
+  description: String!
+  link: String!
+  date: DateTime!
+}
+
+enum ContentType {
+  VIDEO
+  SLIDE
+  BOOK
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  getAllContent: [Content!]!
+}
+
+type Mutation {
+  createContent(data: CreateContentInput!): Content!
+}
+
+input CreateContentInput {
+  name: String!
+  type: ContentType!
+  description: String!
+  link: String!
+  date: DateTime!
+}
