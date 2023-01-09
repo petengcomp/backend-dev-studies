@@ -8,6 +8,8 @@ import { join } from 'path';
 import typeormConfig from './config/typeorm.config';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { UserModule } from './user/user.module';
+import { AppResolver } from './app.resolver';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,7 +23,9 @@ import { UserModule } from './user/user.module';
     ContentModule,
     TrailModule,
     UserModule,
+    AuthModule,
   ],
+  providers: [AppResolver],
   // providers: [],
 })
 
