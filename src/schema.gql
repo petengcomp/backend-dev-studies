@@ -3,19 +3,31 @@
 # ------------------------------------------------------
 
 type Trail {
-  id: String!
+  """Primary Id"""
+  id: Int!
+
+  """Trail name"""
   name: String!
+
+  """Trail type (Check possible values)"""
   type: TrailType!
+
+  """must be: youtube/book/slide"""
   stack: String!
+
+  """Short description for trail"""
   description: String!
-  contents: [Content!]!
+
+  """Trail's content"""
+  contents: Content
 }
 
 enum TrailType {
-  INICIANTES
+  BEGINNER
   FRONTEND
   BACKEND
   DEVOPS
+  MOBILE
 }
 
 type Content {

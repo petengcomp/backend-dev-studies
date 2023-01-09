@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { TrailService } from './trail.service';
-import { Trail } from './trail.entity';
+import { Trail } from './entities/trail.entity';
 import { CreateTrailInput } from './dto/create-trail.input';
-import { Content } from 'src/content/content.entity';
+import { Content } from 'src/content/entities/content.entity';
 
 @Resolver(() => Trail)
 export class TrailResolver {

@@ -1,5 +1,5 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Content } from './content.entity';
+import { Content } from './entities/content.entity';
 import { ContentService } from './content.service';
 import { CreateContentInput } from './dto/create-content.input';
 

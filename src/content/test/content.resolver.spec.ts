@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ContentResolver } from './content.resolver';
+import { ContentResolver } from '../content.resolver';
 
 describe('ContentResolver', () => {
   let resolver: ContentResolver;

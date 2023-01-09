@@ -4,10 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Content } from 'src/content/content.entity';
+import { Content } from 'src/content/entities/content.entity';
 import { Repository } from 'typeorm';
 import { CreateTrailInput } from './dto/create-trail.input';
-import { Trail } from './trail.entity';
+import { Trail } from './entities/trail.entity';
 
 @Injectable()
 export class TrailService {

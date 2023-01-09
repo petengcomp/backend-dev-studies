@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TrailResolver } from './trail.resolver';
-import { TrailService } from './trail.service';
+import { TrailResolver } from '../trail.resolver';
+import { TrailService } from '../trail.service';
 
 describe('TrailResolver', () => {
   let resolver: TrailResolver;
