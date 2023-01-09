@@ -32,3 +32,5 @@ export class UserController {
     return this.userService.remove(+id);
   }
 }
+
+// Reset routes and add guard decorators
