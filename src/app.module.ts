@@ -7,6 +7,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import typeormConfig from './config/typeorm.config';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
     TypeOrmModule.forRoot(typeormConfig()),
     ContentModule,
     TrailModule,
+    UserModule,
   ],
   // providers: [],
 })
