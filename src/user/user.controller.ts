@@ -1,18 +1,17 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateNormalUserDto } from './dto/create-normal-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtGuard } from 'src/auth/jwt.guard';
 import { RoleGuard, Roles } from 'src/auth/role.guard';
-import { CreateAdminUserDto } from './dto/create-admin-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('register')
+  @Post('register-normal-user')
   @UseGuards(JwtGuard, new RoleGuard(Roles.ADMIN))
-  async createNormalUser(@Body() createUserDto: CreateNormalUserDto) {
+  async createNormalUser(@Body() createUserDto: CreateUserDto) {
     try {
       return await this.userService.createNormalUser(createUserDto);
     } catch (e) {
@@ -60,7 +59,7 @@ export class UserController {
     }
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   @UseGuards(JwtGuard, new RoleGuard(Roles.ADMIN))
   async remove(@Param('id') id: string) {
     try {
@@ -72,9 +71,9 @@ export class UserController {
 
   // =================================================== //
   @Post('register-admin')
-  async createAdminUser(@Body() createAdminUserDto: CreateAdminUserDto) {
+  async createAdminUser(@Body() createUserDto: CreateUserDto) {
     try {
-      return await this.userService.createAdminUser(createAdminUserDto);
+      return await this.userService.createAdminUser(createUserDto);
     } catch (e) {
       throw e;
     }
