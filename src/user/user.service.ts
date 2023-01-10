@@ -1,8 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
-import { CreateAdminUserDto } from './dto/create-admin-user.dto';
-import { CreateNormalUserDto } from './dto/create-normal-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Role, User } from './entities/user.entity';
 
@@ -15,12 +14,13 @@ export class UserService {
   ){}
 
   // ============================================================= //
-  async createNormalUser(createUserDto: CreateNormalUserDto): Promise<User> {
+  async createNormalUser(createUserDto: CreateUserDto): Promise<User> {
     
     const isRegistered = await this.findUserByEmail(createUserDto.email);
     
     if(!isRegistered){
       try {
+        createUserDto.role = Role.NORMAL_USER
         const user = this.userRepo.create(createUserDto);
         return await  this.userRepo.save(user);
       } catch (error) {
@@ -95,7 +95,7 @@ export class UserService {
     }
   }
 
-  async createAdminUser(createUserDto: CreateAdminUserDto): Promise<User> {
+  async createAdminUser(createUserDto: CreateUserDto): Promise<User> {
     
     const isRegistered = await this.findUserByEmail(createUserDto.email);
     const users = await this.findAll();
@@ -108,10 +108,10 @@ export class UserService {
       }
     })
 
-    if(!isRegistered || !alreadyHasAdmin){
+    if(!isRegistered && !alreadyHasAdmin){
       try {
-        const user = this.userRepo.create(createUserDto);
-        return await  this.userRepo.save(user);
+        createUserDto.role = Role.ADMIN;
+        return await  this.userRepo.save(createUserDto);
       } catch (error) {
         console.log(error);
         throw new HttpException("Could not register user", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -119,5 +119,4 @@ export class UserService {
     }
     throw new HttpException("User is already registered", HttpStatus.BAD_REQUEST);
   }
-
 }
