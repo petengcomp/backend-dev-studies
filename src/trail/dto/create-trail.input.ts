@@ -1,9 +1,10 @@
-import { InputType } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { TrailType } from '../trail.entity';
+import { TrailType } from '../entities/trail.entity';
 
 @InputType()
 export class CreateTrailInput {
+  
   @IsString()
   @IsNotEmpty({ message: 'Esse campo não pode ficar vazio' })
   name: string;
@@ -23,3 +24,5 @@ export class CreateTrailInput {
   @IsNotEmpty({ message: 'Esse campo não pode ficar vazio' })
   description: string;
 }
+
+// Suggestions: Add @Field() decorator and check if these decorators are working fine 

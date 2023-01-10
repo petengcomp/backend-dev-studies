@@ -5,25 +5,31 @@ import { TrailModule } from './trail/trail.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import typeormConfig from './config/typeorm.config';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { UserModule } from './user/user.module';
+import { AppResolver } from './app.resolver';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: './src/database/database.sqlite',
-      entities: [__dirname + '*/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
+    ConfigModule.forRoot({isGlobal: true}),
+    TypeOrmModule.forRoot(typeormConfig()),
     ContentModule,
     TrailModule,
+    UserModule,
+    AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [AppResolver],
+  // providers: [],
 })
+
 export class AppModule {}
+

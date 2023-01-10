@@ -1,5 +1,5 @@
 import { ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Trail } from 'src/trail/trail.entity';
+import { Trail } from 'src/trail/entities/trail.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum ContentType {

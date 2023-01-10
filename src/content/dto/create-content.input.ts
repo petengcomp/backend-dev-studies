@@ -1,6 +1,6 @@
 import { InputType } from '@nestjs/graphql';
 import { IsDate, IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { ContentType } from '../content.entity';
+import { ContentType } from '../entities/content.entity';
 
 @InputType()
 export class CreateContentInput {

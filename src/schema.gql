@@ -3,19 +3,31 @@
 # ------------------------------------------------------
 
 type Trail {
-  id: String!
+  """Primary Id"""
+  id: Int!
+
+  """Trail name"""
   name: String!
+
+  """Trail type (Check possible values)"""
   type: TrailType!
+
+  """must be: youtube/book/slide"""
   stack: String!
+
+  """Short description for trail"""
   description: String!
-  contents: [Content!]!
+
+  """Trail's content"""
+  contents: Content
 }
 
 enum TrailType {
-  INICIANTES
+  BEGINNER
   FRONTEND
   BACKEND
   DEVOPS
+  MOBILE
 }
 
 type Content {
@@ -40,6 +52,9 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
+  login(email: String!, password: String!): String!
+  securedDataForAdmin: String!
+  securedDataForNormaUser: String!
   getAllContent: [Content!]!
   getContentById(id: String!): Content!
   getAllTrails: [Trail!]!
