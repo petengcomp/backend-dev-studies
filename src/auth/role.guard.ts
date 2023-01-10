@@ -9,7 +9,7 @@ export const Roles = {
 @Injectable()
 export class RoleGuard implements CanActivate {
 
-  private role: string;
+  public role: string;
 
   constructor( role: string ){
     this.role = role;
