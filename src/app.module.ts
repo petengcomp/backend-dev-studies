@@ -10,6 +10,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { UserModule } from './user/user.module';
 import { AppResolver } from './app.resolver';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
+    ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRoot(typeormConfig()),
     ContentModule,
     TrailModule,
