@@ -1,10 +1,10 @@
 import { IsEmail, IsEmpty, IsNotEmpty } from "class-validator"
 import { Role } from "../entities/user.entity"
 
-export class CreateNormalUserDto {
+export class CreateUserDto {
 
     @IsEmpty()
-    role: Role = Role.NORMAL_USER
+    role: Role
 
     @IsNotEmpty()
     name: string
