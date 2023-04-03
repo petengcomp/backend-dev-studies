@@ -1,12 +1,16 @@
 import { InputType } from '@nestjs/graphql';
-import { IsDate, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import { ContentType } from '../entities/content.entity';
 
 @InputType()
 export class CreateContentInput {
   @IsString()
   @IsNotEmpty({ message: 'Esse campo não pode estar vazio' })
-  name: string;
+  title: string;
+
+  @IsString()
+  @IsNotEmpty({ message: 'Esse campo não pode estar vazio'})
+  subject: string;
 
   @IsEnum(ContentType, {
     message: 'Únicas opções aceitadas nesse campo: video/slide/book',
@@ -22,9 +26,5 @@ export class CreateContentInput {
 
   @IsString()
   @IsNotEmpty({ message: 'Esse campo não pode estar vazio' })
-  link: string;
-
-  @IsDate()
-  @IsNotEmpty({ message: 'Esse campo não pode estar vazio' })
-  date: Date;
+  content: string;
 }
