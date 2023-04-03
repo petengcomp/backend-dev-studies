@@ -4,46 +4,15 @@
 
 type Trail {
   """Primary Id"""
-  id: Int!
+  id: String!
 
   """Trail name"""
   name: String!
 
-  """Trail type (Check possible values)"""
-  type: TrailType!
-
-  """must be: youtube/book/slide"""
-  stack: String!
-
-  """Short description for trail"""
-  description: String!
-
-  """Trail's content"""
-  contents: Content
-}
-
-enum TrailType {
-  BEGINNER
-  FRONTEND
-  BACKEND
-  DEVOPS
-  MOBILE
-}
-
-type Content {
-  id: String!
-  name: String!
-  type: ContentType!
-  description: String!
-  link: String!
-  date: DateTime!
-  trail: Trail!
-}
-
-enum ContentType {
-  VIDEO
-  SLIDE
-  BOOK
+  """Trail's contents"""
+  contents: [Content!]
+  createadDate: DateTime!
+  updatedDate: DateTime!
 }
 
 """
@@ -51,10 +20,20 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Content {
+  id: String!
+  title: String!
+  subject: String!
+  type: String!
+  description: String
+  content: String!
+  trail: Trail!
+  createadDate: DateTime!
+  updatedDate: DateTime!
+}
+
 type Query {
   login(email: String!, password: String!): String!
-  securedDataForAdmin: String!
-  securedDataForNormaUser: String!
   getAllContent: [Content!]!
   getContentById(id: String!): Content!
   getAllTrails: [Trail!]!
@@ -68,19 +47,24 @@ type Mutation {
   createTrail(data: CreateTrailInput!): Trail!
   updateTrailById(id: String!, data: CreateTrailInput!): Trail!
   deleteTrailById(id: String!): Trail!
+  addContentByTrailId(trailId: String!, contentID: String!): Trail!
 }
 
 input CreateContentInput {
-  name: String!
+  title: String!
+  subject: String!
   type: ContentType!
   description: String!
-  link: String!
-  date: DateTime!
+  content: String!
+}
+
+enum ContentType {
+  VIDEO
+  SLIDE
+  BOOK
+  LINK
 }
 
 input CreateTrailInput {
   name: String!
-  type: TrailType!
-  stack: String!
-  description: String!
 }
