@@ -16,7 +16,7 @@ export class ContentService {
   ) {}
 
   async getAllContent(): Promise<Content[]> {
-    const contents = await this.contentRepository.find();
+    const contents = await this.contentRepository.find({relations: ["trail"]});
     return contents;
   }
 

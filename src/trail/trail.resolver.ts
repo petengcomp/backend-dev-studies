@@ -8,7 +8,8 @@ import { RoleGuard, Roles } from 'src/auth/role.guard';
 
 @Resolver(() => Trail)
 export class TrailResolver {
-  constructor(private readonly trailService: TrailService) {}
+  constructor(
+    private readonly trailService: TrailService) {}
 
   @Mutation(() => Trail)
   @UseGuards(JwtGuard, new RoleGuard(Roles.ADMIN))
@@ -41,13 +42,12 @@ export class TrailResolver {
     return await this.trailService.deleteTrailById(id);
   }
 
-  // @Mutation(() => Trail)
-  // async addContentByTrailId(
-  //   @Args('id') id: string,
-  //   @Args('content') content: Content,
-  // ): Promise<Trail> {
-  //   return await this.trailService.addContentByTrailId(id, content);
-  // }
+  @Mutation(() => Trail)
+  @UseGuards(JwtGuard, new RoleGuard(Roles.ADMIN))
+  async addContentByTrailId(
+    @Args('trailId') trailId: string,
+    @Args('contentID') contentId: string,
+  ): Promise<Trail> {
+    return await this.trailService.addContentByTrailId(trailId, contentId);
+  }
 }
-
-// We can comment Guards row to test resolvers################
