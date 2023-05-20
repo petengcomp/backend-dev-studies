@@ -11,6 +11,7 @@ export class ContentResolver {
   constructor(private contentService: ContentService) {}
 
   @Query(() => [Content])
+  @UseGuards(JwtGuard)
   async getAllContent(): Promise<Content[]> {
     return await this.contentService.getAllContent();
   }
@@ -24,6 +25,7 @@ export class ContentResolver {
   }
 
   @Query(() => Content)
+  @UseGuards(JwtGuard)
   async getContentById(@Args('id') id: string): Promise<Content> {
     return await this.contentService.getContentById(id);
   }
@@ -41,5 +43,14 @@ export class ContentResolver {
   @UseGuards(JwtGuard, new RoleGuard(Roles.ADMIN))
   async deleteContentById(@Args('id') id: string): Promise<Content> {
     return await this.contentService.deleteContentById(id);
+  }
+
+  @Mutation(() => Content)
+  @UseGuards(JwtGuard, new RoleGuard(Roles.ADMIN))
+  async addMediaByContentId(
+    @Args('contentId') contentId: string,
+    @Args('mediaId') mediaId: string
+  ): Promise <Content>{
+    return await this.contentService.addMediaByContentId(contentId, mediaId);
   }
 }

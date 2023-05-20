@@ -2,6 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Media {
+  id: String!
+  link: String!
+  description: String!
+  content: Content!
+  createadDate: DateTime!
+  updatedDate: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Trail {
   """Primary Id"""
   id: String!
@@ -15,19 +29,14 @@ type Trail {
   updatedDate: DateTime!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Content {
   id: String!
   title: String!
   subject: String!
   type: String!
   description: String
-  content: String!
   trail: Trail!
+  media: [Media!]!
   createadDate: DateTime!
   updatedDate: DateTime!
 }
@@ -38,16 +47,21 @@ type Query {
   getContentById(id: String!): Content!
   getAllTrails: [Trail!]!
   getTrailById(id: String!): Trail!
+  getMedias: [Media!]!
+  findMediaById(id: Int!): Media!
 }
 
 type Mutation {
   createContent(data: CreateContentInput!): Content!
   updateContentById(id: String!, data: CreateContentInput!): Content!
   deleteContentById(id: String!): Content!
+  addMediaByContentId(contentId: String!, mediaId: String!): Content!
   createTrail(data: CreateTrailInput!): Trail!
   updateTrailById(id: String!, data: CreateTrailInput!): Trail!
   deleteTrailById(id: String!): Trail!
   addContentByTrailId(trailId: String!, contentID: String!): Trail!
+  createMedia(createMediaInput: CreateMediaInput!): Media!
+  removeMedia(id: Int!): Media!
 }
 
 input CreateContentInput {
@@ -67,4 +81,9 @@ enum ContentType {
 
 input CreateTrailInput {
   name: String!
+}
+
+input CreateMediaInput {
+  link: String!
+  description: String!
 }

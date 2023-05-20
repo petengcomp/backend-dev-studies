@@ -5,9 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Trail } from './entities/trail.entity';
 import { Content } from 'src/content/entities/content.entity';
 import { ContentService } from 'src/content/content.service';
+import { MediaService } from 'src/media/media.service';
+import { Media } from 'src/media/entities/media.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Trail, Content])],
-  providers: [TrailResolver, TrailService, ContentService],
+  imports: [TypeOrmModule.forFeature([Trail, Content, Media])],
+  providers: [TrailResolver, TrailService, ContentService, MediaService],
 })
 export class TrailModule {}

@@ -1,6 +1,7 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Media } from 'src/media/entities/media.entity';
 import { Trail } from 'src/trail/entities/trail.entity';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 export enum ContentType {
   VIDEO = 'video',
@@ -37,13 +38,17 @@ export class Content {
   @Column({nullable: true})
   description: string;
 
-  @Field(() => String, { nullable: false })
-  @Column({nullable: false})
-  content: string;
+  // @Field(() => String, { nullable: false })
+  // @Column({nullable: false})
+  // content: string;
 
   @Field(() => Trail, { nullable: false })
   @ManyToOne(() => Trail, (trail) => trail.contents)
   trail: Trail;
+
+  @Field(() => [Media])
+  @OneToMany(() => Media, (media) => media.content)
+  media: Media[]
 
   @Field(() => Date)
   @CreateDateColumn()

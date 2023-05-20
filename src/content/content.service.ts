@@ -7,16 +7,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Content } from './entities/content.entity';
 import { CreateContentInput } from './dto/create-content.input';
+import { MediaService } from 'src/media/media.service';
+import { Media } from 'src/media/entities/media.entity';
 
 @Injectable()
 export class ContentService {
   constructor(
     @InjectRepository(Content)
     private contentRepository: Repository<Content>,
+    private readonly mediaService: MediaService
   ) {}
 
   async getAllContent(): Promise<Content[]> {
-    const contents = await this.contentRepository.find({relations: ["trail"]});
+    const contents = await this.contentRepository.find({relations: ["trail", "media"]});
     return contents;
   }
 
@@ -36,7 +39,7 @@ export class ContentService {
       where: { id },
     });
     if (!content) {
-      throw new NotFoundException('Esse id não tem nenhum conteúdo associado');
+      throw new InternalServerErrorException('Esse id não tem nenhum conteúdo associado');
     }
     return content;
   }
@@ -49,7 +52,7 @@ export class ContentService {
       where: { id },
     });
     if (!foundContent) {
-      throw new NotFoundException('Esse id não tem nenhum conteúdo associado');
+      throw new InternalServerErrorException('Esse id não tem nenhum conteúdo associado');
     }
     const newContent = await this.contentRepository.update(id, data);
     if (!newContent) {
@@ -72,5 +75,24 @@ export class ContentService {
     }
 
     return content;
+  }
+
+  async addMediaByContentId(contentId: string, mediaId: string){
+    let content: Content = await this.contentRepository.findOne({
+      where: { id: contentId },
+      relations: ["media"]
+    })
+
+    if(!Content)
+      throw new InternalServerErrorException("Não foi possível achar este conteúdo")
+
+    const media: Media = await this.mediaService.findOne(mediaId);
+    content.media.push(media);
+
+    const updatedContent = await this.contentRepository.save(content);
+    if(!updatedContent)
+      throw new InternalServerErrorException("Não foi possível inserir a mídia");
+
+    return updatedContent;
   }
 }
