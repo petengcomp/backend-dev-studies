@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtGuard } from 'src/auth/jwt.guard';
 import { RoleGuard, Roles } from 'src/auth/role.guard';
 import { CreateUserDto } from './dto/create-user.dto';
+import { SilentLoginDto } from './dto/silent-login.dto';
 
 @Controller('user')
 export class UserController {
@@ -35,7 +36,7 @@ export class UserController {
     try {
       return await this.userService.findOneById(+id);
     } catch (e) {
-      throw e;    
+      throw e;
     }
   }
 
@@ -77,5 +78,14 @@ export class UserController {
     } catch (e) {
       throw e;
     }
-  } 
+  }
+
+  @Post('silent-login')
+  async silentLogin(@Body() silentLogin: SilentLoginDto) {
+    try {
+      return await this.userService.silentLogin(silentLogin);
+    } catch (e) {
+      throw e;
+    }
+  }
 }

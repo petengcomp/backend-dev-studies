@@ -1,12 +1,19 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Trail } from 'src/trail/entities/trail.entity';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 export enum ContentType {
   VIDEO = 'video',
   SLIDE = 'slide',
   BOOK = 'book',
-  LINK = 'link'
+  LINK = 'link',
 }
 
 registerEnumType(ContentType, {
@@ -16,29 +23,28 @@ registerEnumType(ContentType, {
 @ObjectType()
 @Entity()
 export class Content {
-
   @Field(() => String)
   @PrimaryGeneratedColumn()
   id: string;
 
   @Field(() => String, { nullable: false })
-  @Column({nullable: false})
+  @Column({ nullable: false })
   title: string;
 
   @Field(() => String, { nullable: false })
-  @Column({nullable: false})
-  subject: string
+  @Column({ nullable: false })
+  subject: string;
 
   @Field(() => String, { nullable: false })
-  @Column({nullable: false})
+  @Column({ nullable: false })
   type: ContentType;
-  
+
   @Field(() => String, { nullable: true })
-  @Column({nullable: true})
+  @Column({ nullable: true })
   description: string;
 
   @Field(() => String, { nullable: false })
-  @Column({nullable: false})
+  @Column({ nullable: false })
   content: string;
 
   @Field(() => Trail, { nullable: false })
@@ -47,9 +53,9 @@ export class Content {
 
   @Field(() => Date)
   @CreateDateColumn()
-  createadDate: Date
+  createadDate: Date;
 
   @Field(() => Date)
   @UpdateDateColumn()
-  updatedDate: Date
+  updatedDate: Date;
 }
