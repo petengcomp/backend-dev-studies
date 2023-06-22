@@ -8,8 +8,7 @@ import { RoleGuard, Roles } from 'src/auth/role.guard';
 
 @Resolver(() => Trail)
 export class TrailResolver {
-  constructor(
-    private readonly trailService: TrailService) {}
+  constructor(private readonly trailService: TrailService) {}
 
   @Mutation(() => Trail)
   @UseGuards(JwtGuard, new RoleGuard(Roles.ADMIN))

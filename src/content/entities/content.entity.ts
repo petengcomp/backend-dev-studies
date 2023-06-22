@@ -1,13 +1,21 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Media } from 'src/media/entities/media.entity';
 import { Trail } from 'src/trail/entities/trail.entity';
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 export enum ContentType {
   VIDEO = 'video',
   SLIDE = 'slide',
   BOOK = 'book',
-  LINK = 'link'
+  LINK = 'link',
 }
 
 registerEnumType(ContentType, {
@@ -17,25 +25,24 @@ registerEnumType(ContentType, {
 @ObjectType()
 @Entity()
 export class Content {
-
   @Field(() => String)
   @PrimaryGeneratedColumn()
   id: string;
 
   @Field(() => String, { nullable: false })
-  @Column({nullable: false})
+  @Column({ nullable: false })
   title: string;
 
   @Field(() => String, { nullable: false })
-  @Column({nullable: false})
-  subject: string
+  @Column({ nullable: false })
+  subject: string;
 
   @Field(() => String, { nullable: false })
-  @Column({nullable: false})
+  @Column({ nullable: false })
   type: ContentType;
-  
+
   @Field(() => String, { nullable: true })
-  @Column({nullable: true})
+  @Column({ nullable: true })
   description: string;
 
   // @Field(() => String, { nullable: false })
@@ -48,13 +55,13 @@ export class Content {
 
   @Field(() => [Media])
   @OneToMany(() => Media, (media) => media.content)
-  media: Media[]
+  media: Media[];
 
   @Field(() => Date)
   @CreateDateColumn()
-  createadDate: Date
+  createadDate: Date;
 
   @Field(() => Date)
   @UpdateDateColumn()
-  updatedDate: Date
+  updatedDate: Date;
 }
