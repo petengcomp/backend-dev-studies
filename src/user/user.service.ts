@@ -116,7 +116,7 @@ export class UserService {
   async createAdminUser(createUserDto: CreateUserDto): Promise<User> {
     const isRegistered = await this.findUserByEmail(createUserDto.email);
     const users = await this.findAll();
-    let alreadyHasAdmin: boolean = false;
+    let alreadyHasAdmin = false;
 
     users.forEach((user) => {
       if (user.role == Role.ADMIN) {

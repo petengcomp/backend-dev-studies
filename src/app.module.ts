@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { AppResolver } from './app.resolver';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ConfigModule } from '@nestjs/config';
     TrailModule,
     UserModule,
     AuthModule,
+    MediaModule,
   ],
   providers: [AppResolver],
   // providers: [],

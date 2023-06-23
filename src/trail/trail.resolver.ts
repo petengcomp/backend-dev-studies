@@ -17,11 +17,13 @@ export class TrailResolver {
   }
 
   @Query(() => [Trail])
+  @UseGuards(JwtGuard)
   async getAllTrails(): Promise<Trail[]> {
     return await this.trailService.getAllTrails();
   }
 
   @Query(() => Trail)
+  @UseGuards(JwtGuard)
   async getTrailById(@Args('id') id: string): Promise<Trail> {
     return await this.trailService.getTrailById(id);
   }
