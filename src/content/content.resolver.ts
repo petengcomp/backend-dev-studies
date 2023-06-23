@@ -49,8 +49,8 @@ export class ContentResolver {
   @UseGuards(JwtGuard, new RoleGuard(Roles.ADMIN))
   async addMediaByContentId(
     @Args('contentId') contentId: string,
-    @Args('mediaId') mediaId: string
-  ): Promise <Content>{
+    @Args('mediaId') mediaId: string,
+  ): Promise<Content> {
     return await this.contentService.addMediaByContentId(contentId, mediaId);
   }
 }

@@ -7,7 +7,7 @@ import { RoleGuard } from './role.guard';
 import { AuthService } from './auth.service';
 
 @Module({
-    imports: [UserModule],
-    providers: [AuthGuard, JwtGuard, AuthService],
+  imports: [UserModule],
+  providers: [AuthGuard, JwtGuard, AuthService],
 })
 export class AuthModule {}
