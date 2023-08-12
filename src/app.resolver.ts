@@ -22,6 +22,7 @@ export class AppResolver {
     return jwt.sign(payload, 'key', { expiresIn: '1800s' });
   }
 
+  //TODO: these must be left as comments
   // Query examples for admin and normal user with jwt
   // @Query(() => String)
   // @UseGuards(JwtGuard, new RoleGuard(Roles.ADMIN))
